@@ -8,33 +8,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Log in</title>
   <style>
-    /* 전체 배경 및 중앙 정렬 */
     body {
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
       margin: 0;
-      /* 배경색을 흰색(White)으로 설정 */
       background-color: white; 
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      /* 기본 글씨색을 검은색 계열로 설정 */
       color: #212121; 
     }
 
-    /* 로그인 박스 스타일 */
     .login-box {
-      background-color: #f7f7f7; /* 로그인 박스만 아주 밝은 회색으로 살짝 구분 */
+      background-color: #f7f7f7;
       padding: 40px;
       border-radius: 15px;
-      /* 은은한 그림자 효과 */
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
       text-align: center;
       max-width: 350px;
       width: 90%;
     }
 
-    /* 제목 스타일 */
     h2 {
       /* 앱 이름 강조, 글씨색 검은색 유지 */
       color: #212121; 
@@ -84,7 +78,7 @@
 </head>
 <body>
   <div class="login-box">
-    <h2>스터디 허브 로그인</h2>
+    <h2>로그인</h2>
     <input type="text" id="username" placeholder="이름 또는 별명 입력" /><br />
     <button onclick="login()">시작하기</button>
   </div>
