@@ -1,0 +1,486 @@
+<!-- 메인 홈 화면 -->
+ <!-- 앱 실행 후 가장 먼저 표시되는 화면이자 주요 기능으로 연결되는 네비게이션 허브 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Hub</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* ---------------------------------------------------- */
+    /* 1. 기본 스타일 및 색상 설정 */
+    /* ---------------------------------------------------- */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: white; 
+      color: #212121;
+      min-height: 100vh;
+      overflow-x: hidden;
+      padding-bottom: 20px; 
+    }
+
+    /* ---------------------------------------------------- */
+    /* 2. 상단 바 (Top Bar) */
+    /* ---------------------------------------------------- */
+    .top-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      background-color: white; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      position: sticky; 
+      top: 0;
+      left: 0;
+      width: 100%; 
+      box-sizing: border-box;
+      z-index: 1000;
+      border-bottom: 1px solid #f0f0f0; 
+    }
+
+    #welcome {
+      font-size: 15px;
+      color: #212121;
+      font-weight: 500;
+    }
+
+    #logout-btn {
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background-color: white; 
+      color: #212121; 
+      border: 1px solid #212121;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.2s;
+    }
+    
+    #logout-btn:hover {
+      background-color: #f5f5f5; 
+      border-color: #1976d2;
+      color: #1976d2;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 3. 상단 아이콘 버튼 그룹 */
+    /* ---------------------------------------------------- */
+    .header-right {
+        display: flex; 
+        align-items: center;
+        gap: 10px; 
+    }
+
+    .icon-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: #212121; 
+        padding: 8px;
+        border-radius: 8px;
+        transition: background-color 0.2s;
+    }
+
+    .icon-btn:hover {
+        background-color: #f0f0f0;
+    }
+
+    #logout-btn {
+        font-size: 1rem;
+        padding: 8px 12px;
+        border: 1px solid #555555;
+        background-color: #ffffff;
+        color: #212121;
+        font-weight: 500;
+    }
+
+    #logout-btn i {
+        margin-right: 5px;
+        font-size: 1.1rem;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 4. 콘텐츠 및 제목 */
+    /* ---------------------------------------------------- */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      padding: 0 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      color: #000000;
+      margin-bottom: 30px;
+      margin-top: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* ---------------------------------------------------- */
+    /* 5. 메인 버튼 그리드 스타일 (Main Buttons Grid) */
+    /* ---------------------------------------------------- */
+    .main-buttons-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr; 
+      gap: 15px;
+      width: 90%; 
+      max-width: 600px;
+      margin: 0 auto 30px auto; 
+    }
+
+    .main-buttons-grid .menu {
+      min-height: 120px; 
+      padding: 10px;
+      font-size: 17px;
+      background-color: #ffffff; 
+      color: #212121;
+      border: 2px solid #000000; 
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      font-weight: 600;
+      line-height: 1.4;
+      display: flex;
+      flex-direction: column; 
+      justify-content: center; 
+      align-items: center;
+      transition: all 0.2s;
+    }
+    
+    .main-buttons-grid .menu:hover {
+      background-color: #e3f2fd; 
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      transform: translateY(-2px); 
+    }
+    
+    .main-buttons-grid .menu i {
+        font-size: 24px;
+        margin-bottom: 8px;
+        color: #3f4192; 
+    }
+
+    /* ---------------------------------------------------- */
+    /* 6. To-Do List 위젯 스타일 (Main Single Widget) */
+    /* ---------------------------------------------------- */
+    .main-buttons-single {
+      width: 90%;
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .todo-list-box {
+      padding: 20px; 
+      font-size: 16px;
+      background-color: #ffffff;
+      color: #212121;
+      border: 2px solid #000000;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: left; 
+      min-height: 200px; 
+    }
+
+    .todo-title {
+      font-size: 1.3rem;
+      margin: 0 0 15px 0;
+      text-align: center;
+      color: #000000;
+      font-weight: 600;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .todo-title i {
+      margin-right: 8px;
+      color: #3f4192;
+    }
+
+    #todo-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      flex-grow: 1;
+    }
+
+    #todo-list li {
+      padding: 8px 0;
+      border-bottom: 1px dashed #e0e0e0;
+      font-size: 16px;
+    }
+    
+    #todo-list li:last-child {
+      border-bottom: none;
+    }
+
+    #todo-list label {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    #todo-list input[type="checkbox"] {
+      margin-right: 10px;
+      accent-color: #2196f3; 
+      transform: scale(1.1);
+    }
+    
+    #todo-list input[type="checkbox"]:checked + span {
+      text-decoration: line-through;
+      color: #888888;
+    }
+    
+    #todo-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      margin-top: 50px;
+    }
+
+    .todo-btn {
+      flex-grow: 1;
+      padding: 10px 10px;
+      font-size: 15px;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      text-align: center;
+      font-weight: 500;
+    }
+    
+    .add-btn {
+      background-color: #2196f3; 
+    }
+    
+    .add-btn:hover {
+      background-color: #1976d2;
+    }
+
+    .delete-btn {
+      background-color: #ef5350;
+    }
+
+    .delete-btn:hover {
+      background-color: #e53935;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="top-bar">
+    <h2 id="welcome">로그인 사용자 확인 중...</h2>
+    
+    <div class="header-right">
+        <button id="notification-btn" class="icon-btn" title="알림 설정">
+            <i class="fas fa-bell"></i>
+        </button>
+        <button id="settings-btn" class="icon-btn" title="설정">
+            <i class="fas fa-cog"></i>
+        </button>
+        <button id="logout-btn" class="icon-btn" onclick="logout()" title="로그아웃">
+            <i class="fas fa-sign-out-alt"></i> 로그아웃
+        </button>
+    </div>
+    </div>
+
+  <div class="content">
+    <h1>📚 Study Hub</h1>
+
+    <div class="main-buttons-grid">
+        <button class="menu" onclick="location.href='timetable.html'">
+            <i class="fas fa-calendar-alt"></i>
+            <span>시간표 / 시정표</span>
+        </button>
+        <button class="menu" onclick="location.href='meal.html'">
+            <i class="fas fa-utensils"></i>
+            <span>오늘의 급식</span>
+        </button>
+        <button class="menu" onclick="location.href='exam-written.html'">
+            <i class="fas fa-pencil-alt"></i>
+            <span>지필평가</span>
+        </button>
+        <button class="menu" onclick="location.href='exam-performance.html'">
+            <i class="fas fa-clipboard-list"></i>
+            <span>수행평가</span>
+        </button>
+    </div>
+    
+    <div class="main-buttons-single">
+        <div id="todo-widget" class="todo-list-box">
+            <h2 class="todo-title">
+                <i class="fas fa-clipboard-list"></i> 오늘의 할 일
+            </h2>
+            <ul id="todo-list">
+                </ul>
+            
+            <div id="todo-actions">
+                <button id="add-todo-btn" class="todo-btn add-btn">
+                    <i class="fas fa-plus"></i> 추가
+                </button>
+                <button id="delete-completed-btn" class="todo-btn delete-btn">
+                    <i class="fas fa-trash-alt"></i> 삭제
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+  <script>
+  let todos = JSON.parse(localStorage.getItem("todos") || '[]');
+
+  // 자동 할 일 생성 로직
+  function generateAutoTodos() {
+    const autoTodos = [];
+    const today = new Date().toISOString().slice(0, 10); 
+
+    // 1. 지필평가 자동 할 일 추가
+    const examData = JSON.parse(localStorage.getItem("examData") || '[]');
+    examData.forEach(block => {
+        if (block.date === today) {
+            block.subjects.forEach(sub => {
+                if (sub.subject && sub.subject.trim() !== '') {
+                    autoTodos.push({ 
+                        text: `📝 오늘 지필평가: ${sub.subject} (${sub.range || '범위 미정'})`, 
+                        completed: false 
+                    });
+                }
+            });
+        }
+    });
+
+    // 2. 수행평가 자동 할 일 추가
+    const evalData = JSON.parse(localStorage.getItem("evaluationData") || '{}');
+    if (evalData[today]) {
+        evalData[today].forEach(item => {
+            autoTodos.push({ 
+                text: `📅 오늘 수행평가: ${item.subject} - ${item.content}`, 
+                completed: false 
+            });
+        });
+    }
+
+    // 3. 시간표 자동 할 일 추가
+    const timetableData = JSON.parse(localStorage.getItem("timetableData") || '[]');
+    const sData = JSON.parse(localStorage.getItem("scheduleData") || '{}'); // 시정표 데이터 사용 제외
+    const dayOfWeek = new Date().getDay(); 
+    const dayIndex = dayOfWeek >= 1 && dayOfWeek <= 5 ? dayOfWeek - 1 : -1; 
+    
+    // 이 부분은 timetableData 구조에 따라 다르게 작동할 수 있으므로, 임시로 첫 번째 수업만 추가
+    if (dayIndex !== -1 && timetableData.length > 0) {
+        if (timetableData[dayIndex] && Array.isArray(timetableData[dayIndex])) {
+            const firstSubject = timetableData[dayIndex][0];
+            if (firstSubject && firstSubject.trim() !== '') {
+                autoTodos.push({
+                    text: `📚 ${firstSubject} 수업 준비하기`,
+                    completed: false
+                });
+            }
+        }
+    }
+
+    // 중복 없이 기존 할 일 목록에 추가
+    autoTodos.forEach(newTodo => {
+        const exists = todos.some(existing => existing.text === newTodo.text);
+        if (!exists) {
+            todos.push(newTodo);
+        }
+    });
+  }
+
+
+  // 할 일 목록을 화면에 렌더링
+  function renderTodos() {
+    const listElement = document.getElementById("todo-list");
+    listElement.innerHTML = ''; 
+
+    if (todos.length === 0) {
+        listElement.innerHTML = '<li style="text-align: center; color: #888; padding: 15px 0; border: none;">오늘의 할 일이 없어요! 할 일을 추가해 보세요.</li>';
+    }
+  
+    todos.forEach((todo, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<label>
+                      <input type="checkbox" ${todo.completed ? 'checked' : ''} onchange="toggleTodo(${index})">
+                      <span style="${todo.completed ? 'text-decoration: line-through; color: #888;' : ''}">${todo.text}</span>
+                    </label>`;
+      listElement.appendChild(li);
+    });
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }
+
+  // 할 일 상태 변경
+  function toggleTodo(index) {
+    todos[index].completed = !todos[index].completed;
+    renderTodos(); 
+  }
+
+  // 항목 삭제 함수 
+  function deleteCompleted() {
+    // 확인 문구 수정
+    if (confirm("완료된 항목만 삭제하시겠습니까?")) {
+        todos = todos.filter(todo => !todo.completed);
+        renderTodos();
+    }
+  }
+
+  // 새로운 할 일 추가 및 삭제 이벤트 리스너 설정
+  document.addEventListener('DOMContentLoaded', () => {
+    const addTodoBtn = document.getElementById('add-todo-btn');
+    const deleteBtn = document.getElementById('delete-completed-btn');
+
+    if (addTodoBtn) {
+        addTodoBtn.onclick = function() {
+            const newTodoText = prompt("새로운 할 일을 입력하세요:");
+            if (newTodoText && newTodoText.trim() !== "") {
+                todos.push({ text: newTodoText.trim(), completed: false });
+                renderTodos();
+            }
+        };
+    }
+
+    if (deleteBtn) {
+        deleteBtn.onclick = deleteCompleted;
+    }
+  });
+
+
+  // 로그인/로그아웃 기능 및 초기화
+  window.onload = function () {
+    const user = localStorage.getItem("loggedInUser");
+    if (!user) {
+      location.href = "login.html"; 
+    } else {
+      document.getElementById("welcome").innerText = `👋 ${user}님, 환영합니다!`;
+      
+      // 1. 자동 할 일 생성 및 업데이트
+      generateAutoTodos();
+
+      // 2. 할 일 목록 렌더링
+      renderTodos(); 
+    }
+  };
+
+  function logout() {
+    if (confirm("로그아웃하시겠습니까?")) {
+      localStorage.removeItem("loggedInUser");
+      location.href = "login.html"; 
+    }
+  }
+  </script>
+</body>
+</html>

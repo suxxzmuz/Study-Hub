@@ -1,0 +1,309 @@
+<!-- 급식 -->
+ <!-- 오늘의 중식, 석식 메뉴를 표시하는 화면 -->
+
+ <!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>스터디 허브 - 급식 정보</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ---------------------------------------------------- */
+        /* 1. 기본 스타일 및 색상 설정 */
+        /* ---------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background: #f7f7f7; 
+            color: #212121;
+            padding: 0;
+            padding-bottom: 120px; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* 2. 상단 헤더 및 날짜 선택 */
+        /* ---------------------------------------------------- */
+        .header-box {
+            background-color: white; 
+            padding: 20px 20px 10px 20px;
+            margin: 0;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #eeeeee;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            margin-top: 0;
+            text-align: center;
+            color: #212121; 
+            font-weight: 700;
+        }
+
+        input[type="date"] {
+            appearance: none; 
+            padding: 10px 15px;
+            font-size: 16px;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            background-color: white; 
+            color: #212121;
+            text-align: center;
+            cursor: pointer;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            font-weight: 500;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: none; 
+            cursor: pointer;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* 3. 급식 카드 섹션 */
+        /* ---------------------------------------------------- */
+        section {
+            background-color: white; 
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 15px; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); 
+            transition: transform 0.3s;
+        }
+        
+        section:hover {
+            transform: translateY(-2px);
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            color: #212121;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h2 i {
+            margin-right: 10px;
+            font-size: 1.3em;
+            color: #000000;
+        }
+
+        ul {
+            padding-left: 0;
+            list-style-type: none;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.4;
+        }
+        
+        li::before {
+            content: '•';
+            color: #212121; 
+            font-weight: bold;
+            display: inline-block;
+            width: 1em;
+            margin-left: -0.7em;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .empty {
+            color: #888;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 4. 하단 고정 요소 (버튼 및 알레르기) */
+        /* ---------------------------------------------------- */
+        .buttons {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+            box-shadow: 0 -3px 10px rgba(0,0,0,0.15);
+            z-index: 1000;
+        }
+
+        .buttons button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background-color: white;
+            color: #212121;
+            border: 1px solid #555555;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: 500;
+            width: 90%; 
+            max-width: 400px;
+        }
+        
+        .buttons button:hover {
+            background-color: #f0f0f0; 
+            border-color: #000000;
+        }
+        
+        .buttons button i {
+            margin-right: 8px;
+            color: #212121;
+        }
+
+        .allergy-info {
+            position: fixed;
+            bottom: 65px; 
+            left: 0;
+            width: 100%;
+            font-size: 0.7rem;
+            color: #666;
+            background: #e0e0e0;
+            text-align: center;
+            padding: 5px 10px;
+            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
+            z-index: 1000;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-box" id="header-box">
+        <h1> 🍚 오늘의 급식</h1>
+        <input id="dateInput" type="date"/>
+    </div>
+
+    <section>
+        <h2><i class="fas fa-utensils"></i> 중식</h2>
+        <ul id="lunchMenu">
+            <li class="empty">중식 정보를 불러오는 중...</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2><i class="fas fa-concierge-bell"></i> 석식</h2>
+        <ul id="dinnerMenu">
+            <li class="empty">석식 정보를 불러오는 중...</li>
+        </ul>
+    </section>
+
+    <div class="allergy-info">
+        알레르기 유발 식재료 번호 : 1.난류, 2.우유, 3.메밀, 4.땅콩, 5.대두, 6.밀, 7.고등어, 8.게, 9.새우, 10.돼지고기, 
+        11.복숭아, 12.토마토, 13.아황산류, 14.호두, 15.닭고기, 16.쇠고기, 17.오징어, 18.조개류(굴, 전복, 홍합 포함), 19.잣
+    </div>
+
+    <div class="buttons">
+        <button onclick="goHome()"><i class="fas fa-home"></i> 메인 화면으로</button>
+    </div>
+    
+    <script>
+        const API_KEY = "7ce4be9cebd04ce0a048b3692a53c90f";
+        const EDU_CODE = "F10";
+        const SCHOOL_CODE = "7380182";
+
+        const dateInput = document.getElementById("dateInput");
+        const lunchMenu = document.getElementById("lunchMenu");
+        const dinnerMenu = document.getElementById("dinnerMenu");
+
+        const allergyMap = {
+            1: "난류", 2: "우유", 3: "메밀", 4: "땅콩", 5: "대두", 6: "밀", 7: "고등어", 8: "게", 9: "새우", 10: "돼지고기",
+            11: "복숭아", 12: "토마토", 13: "아황산류", 14: "호두", 15: "닭고기", 16: "쇠고기", 17: "오징어", 18: "조개류", 19: "잣",
+        };
+
+        function extractAllergyInfo(menuName) {
+            const regex = /\(([\d,]+)\)/;
+            const match = menuName.match(regex);
+            if (!match) return "";
+
+            const nums = match[1].split(",").map(n => n.trim());
+            const allergies = nums.map(n => allergyMap[n]).filter(Boolean);
+            return allergies.length ? ` (알레르기: ${allergies.join(", ")})` : "";
+        }
+
+        function formatDate(dateStr) {
+            return dateStr.replace(/-/g, "");
+        }
+
+        async function fetchMeal(date) {
+            const url = `https://open.neis.go.kr/hub/mealServiceDietInfo?KEY=${API_KEY}&Type=json&ATPT_OFCDC_SC_CODE=${EDU_CODE}&SD_SCHUL_CODE=${SCHOOL_CODE}&MLSV_YMD=${date}`;
+            try {
+                const res = await fetch(url);
+                const data = await res.json();
+
+                if (!data.mealServiceDietInfo) throw new Error("데이터 없음");
+
+                const meals = data.mealServiceDietInfo[1].row;
+                const lunch = meals.find(m => m.MMEAL_SC_NM === "중식");
+                const dinner = meals.find(m => m.MMEAL_SC_NM === "석식");
+
+                renderMenu(lunchMenu, lunch?.DDISH_NM);
+                renderMenu(dinnerMenu, dinner?.DDISH_NM);
+            } catch {
+                renderMenu(lunchMenu, null);
+                renderMenu(dinnerMenu, null);
+            }
+        }
+
+        function renderMenu(container, raw) {
+            container.innerHTML = "";
+            if (!raw) {
+                const li = document.createElement("li");
+                li.textContent = "급식 정보가 없습니다.";
+                li.className = "empty";
+                container.appendChild(li);
+                return;
+            }
+
+            const items = raw
+                .split("<br/>")
+                .map(item => item.trim())
+                .filter(Boolean);
+
+            for (const rawItem of items) {
+                const allergyInfo = extractAllergyInfo(rawItem);
+                const cleanName = rawItem.replace(/\([\d,]+\)/, "").trim();
+
+                const li = document.createElement("li");
+                li.textContent = cleanName + allergyInfo;
+                container.appendChild(li);
+            }
+        }
+
+        const today = new Date();
+        dateInput.valueAsDate = today;
+
+        dateInput.addEventListener("change", () => {
+            fetchMeal(formatDate(dateInput.value));
+        });
+
+        fetchMeal(formatDate(dateInput.value)); 
+        
+        function goHome() {
+          window.location.href = 'index.html'; 
+        }
+    </script>
+</body>
+</html>
