@@ -1,2 +1,361 @@
 <!-- 시간 및 시정표 -->
 <!-- 요일 별 시간표와 수업 시정을 표시하는 화면 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Timetable</title>
+    <style>
+        /* ---------------------------------------------------- */
+        /* 1. 기본 스타일 (무채색 기반) */
+        /* ---------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        #pp {
+            width: 100%;
+            padding: 0 15px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .card-box {
+            background: #ffffff; 
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0px;
+            border: 1px solid #e0e0e0; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            text-align: center;
+            margin: 15px 0 25px 0;
+            font-size: 1.6rem;
+            color: #212121;
+            font-weight: 700;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 2. 시간표 (Timetable) 스타일 */
+        /* ---------------------------------------------------- */
+        .timetable-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .day-card {
+            background-color: #ffffff;
+            border: 1px solid #eeeeee; 
+            border-radius: 8px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+        }
+
+        .day-header {
+            background-color: #e0e0e0; 
+            color: #212121; 
+            padding: 10px 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .period-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .period-item:last-child {
+            border-bottom: none;
+        }
+
+        .period-item strong {
+            width: 25%; 
+            font-weight: 600;
+            color: #555;
+            flex-shrink: 0;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
+        .period-item input[type="text"] {
+            width: 75%; 
+            font-size: 0.95rem;
+            padding: 0;
+            border: 1px solid #ffffff;
+            text-align: center;
+            background: transparent;
+            transition: border-color 0.2s; 
+        }
+        
+        .period-item input[type="text"]:focus {
+            border-color: #cccccc;
+            outline: none;
+        }
+
+
+        /* ---------------------------------------------------- */
+        /* 3. 시정표 (Schedule) 스타일 */
+        /* ---------------------------------------------------- */
+        #schedule {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        #schedule, #schedule th, #schedule td {
+            border: 1px solid #a0a0a0; 
+        }
+
+        #schedule th {
+            background-color: #e0e0e0;
+            padding: 10px 8px;
+            font-size: 1rem;
+            text-align: center;
+            color: #212121;
+        }
+
+        #schedule td {
+            padding: 4px;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        #schedule td input[type="text"] {
+            width: 95%;
+            padding: 8px 6px;
+            font-size: 0.95rem;
+            text-align: center;
+            background-color: transparent;
+            border: none; 
+            border-radius: 0;
+        }
+        
+        #schedule td:nth-child(2) input[type="text"] {
+            text-align: center;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 4. 버튼 스타일 */
+        /* ---------------------------------------------------- */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0 50px 0;
+            flex-wrap: wrap; 
+        }
+
+        .buttons button {
+            flex-grow: 1; 
+            min-width: 120px;
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: 1px solid #555555;
+            background-color: #ffffff; 
+            color: #212121;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            font-weight: 500;
+        }
+
+        .buttons button:hover {
+            background-color: #f0f0f0;
+            border-color: #212121;
+        }
+    </style>
+</head>
+<body>
+    <div id="pp">
+        <div class="section card-box" id="timetable-box">
+            <h1>🗓️ 시간표</h1>
+            <div id="new-timetable-container">
+            </div>
+        </div>
+        
+        <datalist id="subject">
+            <option value="독서"><option value="문학"><option value="수학I"><option value="수학II">
+            <option value="영어I"><option value="영어II"><option value="한국사"><option value="체육">
+            <option value="확률과 통계"><option value="기하"><option value="생활과 윤리"><option value="정치와 법">
+            <option value="한국지리"><option value="고전과 윤리"><option value="여행지리"><option value="물리학I">
+            <option value="화학I"><option value="생명과학I"><option value="지구과학I"><option value="생태와 환경">
+            <option value="정보"><option value="가정과학"><option value="일본어I"><option value="창체(진로)">
+            <option value="동아리"><option value="공강">
+        </datalist>
+
+        <div class="section card-box" id="schedule-box">
+            <h1>⏰ 시정표</h1>
+            <table id="schedule">
+                <colgroup>
+                    <col style="width: 35%;">
+                    <col style="width: 65%;">
+                </colgroup>
+                <thead>
+                    <tr><th>교시</th><th>시간</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>1교시</td><td><input type="text" id="period-1" value="08:40 ~ 09:30"></td></tr>
+                    <tr><td>2교시</td><td><input type="text" id="period-2" value="09:40 ~ 10:30"></td></tr>
+                    <tr><td>3교시</td><td><input type="text" id="period-3" value="10:40 ~ 11:30"></td></tr>
+                    <tr><td>4교시</td><td><input type="text" id="period-4" value="11:40 ~ 12:30"></td></tr>
+                    <tr><td>5교시</td><td><input type="text" id="period-5" value="13:40 ~ 14:30"></td></tr>
+                    <tr><td>6교시</td><td><input type="text" id="period-6" value="14:40 ~ 15:30"></td></tr>
+                    <tr><td>7교시</td><td><input type="text" id="period-7" value="15:40 ~ 16:30"></td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="buttons">
+            <button id="saveALlBtn">💾 저장</button>
+            <button id="clearAllBtn">🔄 초기화</button>
+            <button id="goHomeBtn">🏠 메인 화면으로</button>
+        </div>
+    </div>
+
+    <script>
+        const DAYS = ['MON', 'TUE', 'WED', 'THU', 'FRI'];
+        const PERIODS = 7;
+        const timetableContainer = document.getElementById('new-timetable-container');
+
+        // 시간표 데이터 저장
+        function saveTimetable() {
+            const data = [];
+            for (let day = 0; day < DAYS.length; day++) {
+                const dayData = [];
+                for (let period = 0; period < PERIODS; period++) {
+                    const id = `cell-${day}-${period}`;
+                    const inputElement = document.getElementById(id);
+                    if (inputElement) {
+                        dayData.push(inputElement.value);
+                    } else {
+                        dayData.push(""); 
+                    }
+                }
+                data.push(dayData);
+            }
+            localStorage.setItem("timetableData", JSON.stringify(data));
+        }
+
+        // 시간표 데이터 로드 및 렌더링
+        function renderTimetable() {
+            timetableContainer.innerHTML = '';
+            const storedData = localStorage.getItem("timetableData");
+            let tData;
+            if (storedData) {
+                tData = JSON.parse(storedData);
+            } else {
+                tData = Array(DAYS.length).fill(0).map(() => Array(PERIODS).fill(""));
+            }
+            DAYS.forEach((dayLabel, dayIndex) => {
+                const dayData = tData[dayIndex] || [];
+                const dayCard = document.createElement('div');
+
+                dayCard.className = 'day-card';
+                dayCard.innerHTML = `<div class="day-header">${dayLabel}</div>`;
+                
+                const periodList = document.createElement('div');
+                periodList.className = 'timetable-list';
+                
+                for (let period = 0; period < PERIODS; period++) {
+                    const id = `cell-${dayIndex}-${period}`;
+                    const subject = dayData[period] || "";
+
+                    periodList.innerHTML += `
+                    <div class="period-item">
+                        <strong>${period + 1}교시</strong>
+                        <input type="text" list="subject" id="${id}" value="${subject}">
+                        </div>
+                        `;
+                    }
+                    
+                    dayCard.appendChild(periodList);
+                    timetableContainer.appendChild(dayCard);
+                });
+            }
+            
+            function saveSchedule() {
+                const data = {};
+                for (let i = 1; i <= 7; i++) {
+                    data[`period-${i}`] = document.getElementById(`period-${i}`).value;
+                }
+                localStorage.setItem("scheduleData", JSON.stringify(data));
+            }
+
+            function saveAll() {
+                saveTimetable();
+                saveSchedule();
+                alert("저장되었습니다!");
+            }
+
+            function clearAll() {
+                if (confirm("모두 초기화하시겠습니까?")) {
+                    localStorage.removeItem("timetableData"); 
+                    const defaultSchedule = {
+                      "period-1": "08:40 ~ 09:30",
+                      "period-2": "09:40 ~ 10:30",
+                      "period-3": "10:40 ~ 11:30",
+                      "period-4": "11:40 ~ 12:30",
+                      "period-5": "13:40 ~ 14:30",
+                      "period-6": "14:40 ~ 15:30",
+                      "period-7": "15:40 ~ 16:30",
+                    };
+                    for (let i = 1; i <= 7; i++) {
+                       document.getElementById(`period-${i}`).value = defaultSchedule[`period-${i}`] || "";
+                    }
+                    localStorage.removeItem("scheduleData");
+                    renderTimetable();
+                    alert("초기화되었습니다.");
+                }
+            }
+
+            function loadAll() {
+                renderTimetable();
+                const sData = JSON.parse(localStorage.getItem("scheduleData") || "{}");
+                for (let i = 1; i <= 7; i++) {
+                    const val = sData[`period-${i}`];
+                    const periodElement = document.getElementById(`period-${i}`);
+                    if (periodElement) {
+                         if (val) {
+                             periodElement.value = val;
+                         } else if (!periodElement.value) {
+                         }
+                    }
+                }
+            }
+
+            function goHome() {
+                window.location.href = "/index.html"; 
+            }
+            
+            window.onload = function() {
+                loadAll();
+                const saveBtn = document.getElementById('saveAllBtn');
+                if (saveBtn) saveBtn.addEventListener('click', saveAll);
+                
+                const clearBtn = document.getElementById('clearAllBtn');
+                if (clearBtn) clearBtn.addEventListener('click', clearAll);
+                
+                const homeBtn = document.getElementById('goHomeBtn');
+                if (homeBtn) homeBtn.addEventListener('click', goHome);
+            };
+        </script>
+    </body>
+</html>
