@@ -1,5 +1,5 @@
 <!-- 메인 홈 화면 -->
- <!-- 앱 실행 후 가장 먼저 표시되는 화면이자 주요 기능으로 연결되는 네비게이션 허브 -->
+<!-- 앱 실행 후 가장 먼저 표시되는 화면이자 주요 기능으로 연결되는 네비게이션 허브 -->
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -343,6 +343,14 @@
   <script>
   let todos = JSON.parse(localStorage.getItem("todos") || '[]');
 
+  function goToSettings() {
+    window.location.href = "settings.html";
+  }
+
+  function goToNotifications() {
+    window.location.href = 'notification.html';
+    }
+
   // 자동 할 일 생성 로직
   function generateAutoTodos() {
     const autoTodos = [];
@@ -376,11 +384,10 @@
 
     // 3. 시간표 자동 할 일 추가
     const timetableData = JSON.parse(localStorage.getItem("timetableData") || '[]');
-    const sData = JSON.parse(localStorage.getItem("scheduleData") || '{}'); // 시정표 데이터 사용 제외
+    const sData = JSON.parse(localStorage.getItem("scheduleData") || '{}'); 
     const dayOfWeek = new Date().getDay(); 
     const dayIndex = dayOfWeek >= 1 && dayOfWeek <= 5 ? dayOfWeek - 1 : -1; 
     
-    // 이 부분은 timetableData 구조에 따라 다르게 작동할 수 있으므로, 임시로 첫 번째 수업만 추가
     if (dayIndex !== -1 && timetableData.length > 0) {
         if (timetableData[dayIndex] && Array.isArray(timetableData[dayIndex])) {
             const firstSubject = timetableData[dayIndex][0];
@@ -438,6 +445,9 @@
     }
   }
 
+  document.getElementById('settings-btn').addEventListener('click', goToSettings); 
+  document.getElementById('notification-btn').addEventListener('click', goToNotifications); 
+
   // 새로운 할 일 추가 및 삭제 이벤트 리스너 설정
   document.addEventListener('DOMContentLoaded', () => {
     const addTodoBtn = document.getElementById('add-todo-btn');
@@ -481,6 +491,8 @@
       location.href = "login.html"; 
     }
   }
+
+
   </script>
 </body>
 </html>

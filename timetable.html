@@ -1,6 +1,10 @@
 <!-- 시간 및 시정표 -->
 <!-- 요일 별 시간표와 수업 시정을 표시하는 화면 -->
 
+<!-- 수정 목록 -->
+<!-- 과목과 교시가 표시되는 table에 세로 구분선 추가하기 -->
+<!-- 저장, 초기화, 메인화면 버튼 수정하기 -->
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -235,7 +239,6 @@
         const PERIODS = 7;
         const timetableContainer = document.getElementById('new-timetable-container');
 
-        // 시간표 데이터 저장
         function saveTimetable() {
             const data = [];
             for (let day = 0; day < DAYS.length; day++) {
@@ -254,7 +257,6 @@
             localStorage.setItem("timetableData", JSON.stringify(data));
         }
 
-        // 시간표 데이터 로드 및 렌더링
         function renderTimetable() {
             timetableContainer.innerHTML = '';
             const storedData = localStorage.getItem("timetableData");

@@ -1,2 +1,386 @@
 <!-- 설정 화면 -->
 <!-- 앱 테마, 알림 설정, 초기 데이터 입력/수정 등을 위한 화면 -->
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설정</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* ---------------------------------------------------- */
+        /* 1. 기본 스타일 및 레이아웃 (무채색 기반) */
+        /* ---------------------------------------------------- */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7; /* 배경색: 아주 연한 회색 */
+            color: #333;
+        }
+
+        /* 중앙 정렬 컨테이너 */
+        #pp {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto; /* 중앙 정렬 */
+            padding: 0 15px 50px 15px;
+        }
+
+        h1 {
+            color: #212121;
+            margin: 30px 0 20px 0;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        /* 섹션 카드 스타일 */
+        .settings-section {
+            background: #ffffff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e0e0e0; 
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .settings-section h2 {
+            font-size: 1.25rem;
+            color: #555;
+            margin-top: 0;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* 설정 항목 스타일 */
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px dashed #f0f0f0;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .setting-item label {
+            font-size: 1rem;
+            color: #212121;
+        }
+
+        /* ---------------------------------------------------- */
+        /* 2. 스위치/버튼/테마 관련 스타일 */
+        /* ---------------------------------------------------- */
+        
+        /* 토글 스위치 (무채색 기반) */
+        .switch {
+          position: relative;
+          display: inline-block;
+          width: 48px;
+          height: 24px;
+        }
+
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          transition: .4s;
+          border-radius: 24px;
+        }
+
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 18px;
+          width: 18px;
+          left: 3px;
+          bottom: 3px;
+          background-color: white;
+          transition: .4s;
+          border-radius: 50%;
+        }
+
+        input:checked + .slider {
+          background-color: #555; /* 체크 시 진한 회색 */
+        }
+
+        input:focus + .slider {
+          box-shadow: 0 0 1px #555;
+        }
+
+        input:checked + .slider:before {
+          transform: translateX(24px);
+        }
+
+        /* 데이터 관리 버튼 */
+        .data-button {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            margin-top: 10px;
+            border: 1px solid #555;
+            background-color: #ffffff;
+            color: #212121;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .data-button:hover {
+            background-color: #f0f0f0;
+        }
+        
+        /* 경고 버튼 (초기화) */
+        #clearAllDataBtn {
+            border-color: #cc0000;
+            color: #cc0000;
+        }
+        
+        #clearAllDataBtn:hover {
+            background-color: #ffe6e6;
+        }
+
+        /* 메인으로 돌아가기 버튼 */
+        .buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        #goHomeBtn {
+            width: 200px;
+            padding: 12px 20px;
+            font-size: 1.1rem;
+            border: 1px solid #555555;
+            background-color: #ffffff; 
+            color: #212121;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-weight: 500;
+        }
+        
+        #goHomeBtn:hover {
+             background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div id="pp">
+        <h1>⚙️ 설정</h1>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-palette"></i> 앱 설정</h2>
+            
+            <div class="setting-item">
+                <label for="themeToggle">테마: 라이트 / 다크 모드</label>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label for="notificationToggle">알림 설정</label>
+                <label class="switch">
+                    <input type="checkbox" id="notificationToggle" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="setting-item">
+                <label>데이터 입력/수정 페이지</label>
+                <button id="editTimetableBtn" class="data-button" style="width: auto; margin: 0; padding: 5px 10px;">
+                    <i class="fas fa-edit"></i> 수정
+                </button>
+            </div>
+        </div>
+
+        <div class="settings-section">
+            <h2><i class="fas fa-database"></i> 데이터 관리</h2>
+            
+            <div class="setting-item" style="display: block;">
+                <button id="backupDataBtn" class="data-button">
+                    <i class="fas fa-upload"></i> 데이터 백업 (파일로 저장)
+                </button>
+                <button id="restoreDataBtn" class="data-button">
+                    <i class="fas fa-download"></i> 데이터 복구 (파일 불러오기)
+                </button>
+                <button id="clearAllDataBtn" class="data-button">
+                    <i class="fas fa-exclamation-triangle"></i> 모든 데이터 초기화
+                </button>
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="goHomeBtn" title="메인 화면으로">
+                <i class="fas fa-home"></i> 메인 화면으로
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // 테마 관련 로직
+        function applyTheme(isDark) {
+            const body = document.body;
+            if (isDark) {
+                body.style.backgroundColor = '#2c2c2c';
+                body.style.color = '#e0e0e0';
+                document.querySelectorAll('.settings-section').forEach(el => {
+                    el.style.backgroundColor = '#3c3c3c';
+                    el.style.borderColor = '#444';
+                });
+                document.querySelector('h1').style.color = '#ffffff';
+                document.querySelectorAll('.settings-section h2, .setting-item label').forEach(el => {
+                    el.style.color = '#e0e0e0';
+                });
+                document.querySelectorAll('.data-button').forEach(el => {
+                    el.style.backgroundColor = '#555';
+                    el.style.color = '#ffffff';
+                    el.style.borderColor = '#777';
+                });
+                document.querySelector('#clearAllDataBtn').style.backgroundColor = '#a00';
+                document.querySelector('#clearAllDataBtn').style.color = '#ffffff';
+                document.querySelector('#clearAllDataBtn').style.borderColor = '#c00';
+                
+            } else {
+                // 라이트 모드 (CSS 기본값으로 복원)
+                body.style.backgroundColor = '';
+                body.style.color = '';
+                document.querySelectorAll('.settings-section').forEach(el => {
+                    el.style.backgroundColor = '';
+                    el.style.borderColor = '';
+                });
+                document.querySelector('h1').style.color = '';
+                document.querySelectorAll('.settings-section h2, .setting-item label').forEach(el => {
+                    el.style.color = '';
+                });
+                document.querySelectorAll('.data-button').forEach(el => {
+                    el.style.backgroundColor = '';
+                    el.style.color = '';
+                    el.style.borderColor = '';
+                });
+                document.querySelector('#clearAllDataBtn').style.backgroundColor = '';
+                document.querySelector('#clearAllDataBtn').style.color = '#cc0000';
+                document.querySelector('#clearAllDataBtn').style.borderColor = '#cc0000';
+            }
+            localStorage.setItem('isDarkTheme', isDark);
+        }
+
+        // 초기 로드 시 테마 적용
+        function loadTheme() {
+            const isDark = localStorage.getItem('isDarkTheme') === 'true';
+            document.getElementById('themeToggle').checked = isDark;
+            applyTheme(isDark);
+        }
+
+        // 알림 상태 저장/로드 (더미 로직)
+        function loadNotificationState() {
+            const isNotiOn = localStorage.getItem('isNotificationOn') !== 'false';
+            document.getElementById('notificationToggle').checked = isNotiOn;
+        }
+
+        function saveNotificationState() {
+            const isNotiOn = document.getElementById('notificationToggle').checked;
+            localStorage.setItem('isNotificationOn', isNotiOn);
+            alert(`알림 설정이 ${isNotiOn ? '켜짐' : '꺼짐'}으로 저장되었습니다.`);
+        }
+
+        // 데이터 백업 (더미 로직)
+        function backupData() {
+            const data = {
+                timetable: localStorage.getItem('timetableData'),
+                schedule: localStorage.getItem('scheduleData'),
+                exam: localStorage.getItem('examData'),
+                evaluation: localStorage.getItem('evaluationData'),
+                settings: {
+                    isDarkTheme: localStorage.getItem('isDarkTheme'),
+                    isNotificationOn: localStorage.getItem('isNotificationOn')
+                }
+            };
+            // 실제 파일 저장 로직 (여기서는 간소화)
+            const json = JSON.stringify(data, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'school_app_data_backup.json';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            alert("데이터 백업 파일 다운로드를 시작합니다.");
+        }
+        
+        // 데이터 복구 (더미 로직)
+        function restoreData() {
+             // 복구 로직은 사용자 인터랙션이 복잡하므로 alert로 대체합니다.
+             alert("데이터 복구 기능을 구현하려면 파일 선택 및 로직 처리가 필요합니다.");
+             // 실제 구현 시 input[type="file"]을 사용해야 함.
+        }
+
+        // 전체 데이터 초기화
+        function clearAllData() {
+            if (confirm("경고: 저장된 모든 시간표, 시험, 수행평가 데이터를 초기화하시겠습니까? 되돌릴 수 없습니다.")) {
+                localStorage.removeItem('timetableData');
+                localStorage.removeItem('scheduleData');
+                localStorage.removeItem('examData');
+                localStorage.removeItem('evaluationData');
+                localStorage.setItem('isDarkTheme', 'false'); // 테마는 라이트로 초기화
+                localStorage.setItem('isNotificationOn', 'true'); // 알림은 켬으로 초기화
+                loadTheme();
+                loadNotificationState();
+                alert("모든 데이터가 초기화되었습니다.");
+            }
+        }
+
+        // 메인 화면으로 이동
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+        
+        // 시간표 수정 페이지로 이동
+        function editTimetable() {
+             // timetable.html 페이지로 이동하도록 설정
+             window.location.href = 'timetable.html'; 
+        }
+
+        // ----------------------------------------------------
+        // 페이지 로드 및 이벤트 리스너 연결
+        // ----------------------------------------------------
+        window.onload = function() {
+            loadTheme();
+            loadNotificationState();
+
+            // 이벤트 리스너 연결
+            document.getElementById('themeToggle').addEventListener('change', (e) => applyTheme(e.target.checked));
+            document.getElementById('notificationToggle').addEventListener('change', saveNotificationState);
+            document.getElementById('editTimetableBtn').addEventListener('click', editTimetable);
+            
+            document.getElementById('backupDataBtn').addEventListener('click', backupData);
+            document.getElementById('restoreDataBtn').addEventListener('click', restoreData);
+            document.getElementById('clearAllDataBtn').addEventListener('click', clearAllData);
+            
+            document.getElementById('goHomeBtn').addEventListener('click', goHome);
+        };
+    </script>
+</body>
+</html>
