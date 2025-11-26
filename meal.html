@@ -199,6 +199,12 @@
         <input id="dateInput" type="date"/>
     </div>
 
+    <div class="reload-button-container">
+        <button id="reloadBtn" class="reload-button" title="급식 메뉴 다시 불러오기">
+            <i class="fas fa-sync-alt"></i> 새로고침
+        </button>
+    </div>
+
     <section>
         <h2><i class="fas fa-utensils"></i> 중식</h2>
         <ul id="lunchMenu">
@@ -295,6 +301,11 @@
             }
         }
 
+        function reloadMeal() {
+            fetchMeal (formatDate(dateInput.value));
+        }
+        reloadBtn.addEventListener("click", reloadMeal);
+        
         const today = new Date();
         dateInput.valueAsDate = today;
 

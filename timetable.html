@@ -1,15 +1,12 @@
 <!-- 시간 및 시정표 -->
 <!-- 요일 별 시간표와 수업 시정을 표시하는 화면 -->
 
-<!-- 수정 목록 -->
-<!-- 과목과 교시가 표시되는 table에 세로 구분선 추가하기 -->
-<!-- 저장, 초기화, 메인화면 버튼 수정하기 -->
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <title>School Timetable</title>
     <style>
         /* ---------------------------------------------------- */
@@ -97,12 +94,14 @@
             flex-shrink: 0;
             font-size: 0.95rem;
             text-align: center;
+            border-right: 1px solid #e0e0e0;
+            padding-right: 15px;
         }
 
         .period-item input[type="text"] {
             width: 75%; 
             font-size: 0.95rem;
-            padding: 0;
+            padding: 0 0 0 15px;
             border: 1px solid #ffffff;
             text-align: center;
             background: transparent;
@@ -170,7 +169,7 @@
         .buttons button {
             flex-grow: 1; 
             min-width: 120px;
-            padding: 10px 15px;
+            padding: 12px 15px;
             font-size: 1rem;
             border: 1px solid #555555;
             background-color: #ffffff; 
@@ -179,11 +178,26 @@
             cursor: pointer;
             transition: background-color 0.3s ease, border-color 0.3s ease;
             font-weight: 500;
+            border: 1px solid #a0a0a0;
+            background-color: #ffffff;
+            color: #555;
         }
 
         .buttons button:hover {
             background-color: #f0f0f0;
-            border-color: #212121;
+            border-color: #555;
+        }
+
+        #saveAllBtn {
+            background-color: #007bff; 
+            color: white;
+            border-color: #007bff;
+            box-shadow: 0 4px 6px rgba(0, 123, 255, 0.2);
+        }
+
+        #saveAllBtn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
     </style>
 </head>
@@ -228,9 +242,9 @@
         </div>
         
         <div class="buttons">
-            <button id="saveALlBtn">💾 저장</button>
-            <button id="clearAllBtn">🔄 초기화</button>
-            <button id="goHomeBtn">🏠 메인 화면으로</button>
+            <button id="saveAllBtn"><i class="fas fa-save"></i> 저장하기</button>
+            <button id="clearAllBtn"><i class="fas fa-redo"></i> 전체 초기화</button>
+            <button id="goHomeBtn"><i class="fas fa-home"></i> 메인 화면으로</button>
         </div>
     </div>
 

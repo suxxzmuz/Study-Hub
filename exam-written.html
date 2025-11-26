@@ -1,12 +1,6 @@
 <!-- 지필평가 시간표 -->
 <!-- 중간/기말고사 등의 지필평가 일정을 표시하는 화면 -->
 
-<!-- 수정 목록 -->
-<!-- 날짜 목록 길이 수정 -->
-<!-- 하단 버튼 크기 수정 -->
-<!-- table 수정 -->
-<!-- 아무 정보 없이 저장했을 때 전체 테이블 날라감 현상 방지용으로 기본 값 3개 지정하기 -->
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -124,7 +118,7 @@
         .buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             margin: 30px 0 50px 0;
             flex-wrap: wrap;
         }
@@ -141,7 +135,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-weight: 500;
-            max-width: 160px; 
+            max-width: 130px; 
         }
         
         .buttons button:hover {
@@ -151,6 +145,17 @@
         .buttons button i {
             font-size: 1.2rem;
             margin-right: 5px; 
+        }
+
+        #saveExamBtn {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        #saveExamBtn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
         }
         
         .exam-block button:not([onclick^="removeExamBlock"]) {
@@ -262,7 +267,7 @@
         }
 
         function removeExamBlock(blockId) {
-             if (confirm("이 날짜 블록을 삭제하시겠습니까?")) {
+             if (confirm("삭제하시겠습니까?")) {
                 const block = document.getElementById(blockId);
                 if (block) {
                     block.remove();
@@ -287,7 +292,7 @@
         function saveExam() {
             const blocks = document.querySelectorAll(".exam-block");
             const data = Array.from(blocks).map(block => {
-                const date = block.querySelector(".exam-date").value;
+                const date = block.querySelector(".exam-date").value.trim();
                 const rows = block.querySelectorAll("tbody tr");
                 const subjects = Array.from(rows).map(row => {
                     const inputs = row.querySelectorAll("input[type='text']");
@@ -319,13 +324,20 @@
 
         window.onload = function () {
             const saved = localStorage.getItem("examData");
+            let data = [];
+
             if (saved) {
                 const data = JSON.parse(saved);
                 data.forEach(entry => {
                     createExamBlock(entry.date, entry.subjects.length, entry.subjects);
                 });
-            } else {
-                for (let i = 0; i < 3; i++) createExamBlock();
+            } 
+            
+            const currentBlocks = document.querySelectorAll('.exam-block').length;
+            if (currentBlocks < 3) {
+                for (let i = 0; i < 3 - currentBlocks; i++) {
+                    createExamBlock();
+                }
             }
             
             const addDateBtn = document.getElementById('addDateBtn');
