@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* ---------------------------------------------------- */
-        /* 1. 기본 스타일 및 레이아웃 (무채색 기반) */
+        /* 1. 기본 스타일 및 레이아웃 */
         /* ---------------------------------------------------- */
         * {
             box-sizing: border-box;
@@ -17,16 +17,15 @@
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f7f7f7; /* 배경색: 아주 연한 회색 */
+            background-color: #f7f7f7;
             color: #333;
             min-height: 100vh;
         }
 
-        /* 중앙 정렬 컨테이너 */
         #pp {
             max-width: 600px;
             width: 100%;
-            margin: 0 auto; /* 중앙 정렬 */
+            margin: 0 auto; 
             padding: 0 15px 50px 15px;
         }
 
@@ -37,7 +36,6 @@
             font-weight: 700;
         }
 
-        /* 섹션 카드 스타일 */
         .section-card {
             background: #ffffff;
             border-radius: 12px;
@@ -55,7 +53,6 @@
             border-bottom: 1px solid #eee;
         }
 
-        /* 설정 항목 스타일 */
         .setting-item {
             display: flex;
             justify-content: space-between;
@@ -118,7 +115,6 @@
             color: #999;
         }
 
-        /* 알림 없음 메시지 */
         #no-notifications {
             text-align: center;
             color: #999;
@@ -127,7 +123,7 @@
         }
         
         /* ---------------------------------------------------- */
-        /* 3. 스위치/버튼 스타일 (settings.html과 동일) */
+        /* 3. 스위치/버튼 스타일 */
         /* ---------------------------------------------------- */
         .switch {
           position: relative;
@@ -167,7 +163,7 @@
         }
 
         input:checked + .slider {
-          background-color: #555; /* 체크 시 진한 회색 */
+          background-color: #555; 
         }
 
         input:focus + .slider {
@@ -178,7 +174,6 @@
           transform: translateX(24px);
         }
 
-        /* 돌아가기 버튼 */
         .buttons {
             display: flex;
             justify-content: center;
@@ -262,17 +257,15 @@
         // 더미 데이터 및 로직
         // ----------------------------------------------------
         
-        // 더미 알림 데이터 (실제 앱에서는 서버 또는 LocalStorage에서 가져옵니다)
         let notifications = [
             { id: 1, title: "지필평가 마감 임박", content: "수학 시험 범위 입력이 내일 마감됩니다.", time: "10분 전", icon: "fas fa-exclamation-circle" },
             { id: 2, title: "시간표 알림", content: "다음 수업은 1교시 '국어' 입니다.", time: "1시간 전", icon: "fas fa-clock" },
             { id: 3, title: "수행평가 일정 변경", content: "과학 수행 '보고서' 제출일이 연기되었습니다.", time: "어제", icon: "fas fa-clipboard-list" }
         ];
 
-        // 알림 목록 렌더링 함수
         function renderNotifications() {
             const listElement = document.getElementById('notification-list');
-            listElement.innerHTML = ''; // 기존 목록 초기화
+            listElement.innerHTML = ''; 
 
             if (notifications.length === 0) {
                 listElement.innerHTML = '<div id="no-notifications">수신된 알림이 없습니다.</div>';
