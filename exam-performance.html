@@ -54,13 +54,20 @@
         /* ---------------------------------------------------- */
         /* 2. 달력 스타일 */
         /* ---------------------------------------------------- */
-        .buttons { margin: 15px 0; }
+        .calendar-controls { 
+            margin: 15px 0; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            padding: 0 10px;
+        }
 
         #monthYear {
             font-size: 1.1rem;
             font-weight: bold;
-            margin: 0 15px;
             color: #212121;
+            white-space: nowrap; 
+            flex-shrink: 0;
         }
 
         table.calendar {
@@ -152,6 +159,15 @@
             flex-wrap: wrap;
         }
         
+        .buttons button#prevMonthBtn,
+        .buttons button#nextMonthBtn {
+            min-width: 90px;
+            max-width: 100px; 
+            padding: 8px 10px;
+            font-size: 0.9rem; 
+            flex-grow: 0; 
+        }
+
         .buttons button {
             flex-grow: 1; 
             min-width: 140px;
@@ -182,7 +198,7 @@
         <div class="section" id="timetable-box"></div>
         <h1>📘 수행평가 일정표</h1>
 
-        <div class="buttons">
+        <div class="buttons calendar-controls"> 
             <button id="prevMonthBtn">
                 <i class="fas fa-chevron-left"></i> 이전 달
             </button>
