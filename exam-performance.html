@@ -1,10 +1,6 @@
 <!-- 수행평가 시간표 -->
 <!-- 과목별 수행평가 일정 및 마감일을 보여주는 화면 -->
 
-<!-- 수정 목록 -->
-<!-- 년/월 표시 양 옆으로 넘어가는 버튼 크기 조절하기  -->
-<!-- -->
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -185,17 +181,35 @@
 
         .buttons button {
             flex-grow: 1; 
-            min-width: 150px;
-            padding: 10px 15px;
+            min-width: 120px;
+            padding: 12px 15px;
             font-size: 1rem;
             border: 1px solid #555555;
             background-color: #ffffff; 
             color: #212121;
             border-radius: 8px;
             cursor: pointer;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
             font-weight: 500;
-            max-width: 150px;
+            border: 1px solid #a0a0a0;
+            background-color: #ffffff;
+            color: #555;
+        }
+
+        #saveExamBtn {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+        
+        #saveExamBtn:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+        .buttons button:hover {
+            background-color: #f0f0f0;
+            border-color: #555;
         }
 
         .buttons button:hover {
@@ -261,11 +275,11 @@
             <button id="saveDataBtn" title="저장">
                 <i class="fas fa-save"></i> 저장
             </button>
-            <button id="clearDataBtn" title="전체 초기화">
+            <button id="clearDataBtn" title="초기화">
                 <i class="fas fa-redo-alt"></i> 초기화
             </button>
             <button id="goHomeBtn" title="메인 화면으로">
-                <i class="fas fa-home"></i> 메인 화면
+                <i class="fas fa-home"></i> 메인 화면으로
             </button>
         </div>
     </div>

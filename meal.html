@@ -135,12 +135,27 @@
         }
 
         /* ---------------------------------------------------- */
-        /* 4. 하단 고정 요소 (버튼 및 알레르기) */
+        /* 4. 알레르기 정보 (최소화된 스크롤 가능 요소) */
+        /* ---------------------------------------------------- */
+        .allergy-scroll-info {
+            font-size: 0.7rem; /* 글씨 크기 줄임 */
+            color: #888; /* 색상을 회색으로 변경 */
+            background: none; /* 배경색 제거 */
+            border: none; /* 테두리 제거 */
+            padding: 10px 15px; /* 패딩 최소화 */
+            margin: 0 15px 10px 15px; /* 상단 마진 제거 */
+            text-align: left; /* 왼쪽 정렬 */
+            line-height: 1.4;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* 5. 하단 고정 버튼 */
         /* ---------------------------------------------------- */
         .buttons {
             position: fixed;
             bottom: 0;
-            left: 0;
+            left: 0; 
+            right: 0;
             width: 100%;
             background: white;
             display: flex;
@@ -173,21 +188,6 @@
             margin-right: 8px;
             color: #212121;
         }
-
-        .allergy-info {
-            position: fixed;
-            bottom: 65px; 
-            left: 0;
-            width: 100%;
-            font-size: 0.7rem;
-            color: #666;
-            background: #e0e0e0;
-            text-align: center;
-            padding: 5px 10px;
-            box-shadow: 0 -1px 3px rgba(0,0,0,0.05);
-            z-index: 1000;
-            line-height: 1.3;
-        }
     </style>
 </head>
 <body>
@@ -210,7 +210,7 @@
         </ul>
     </section>
 
-    <div class="allergy-info">
+    <div class="allergy-scroll-info">
         알레르기 유발 식재료 번호 : 1.난류, 2.우유, 3.메밀, 4.땅콩, 5.대두, 6.밀, 7.고등어, 8.게, 9.새우, 10.돼지고기, 
         11.복숭아, 12.토마토, 13.아황산류, 14.호두, 15.닭고기, 16.쇠고기, 17.오징어, 18.조개류(굴, 전복, 홍합 포함), 19.잣
     </div>
