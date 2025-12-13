@@ -1,9 +1,6 @@
 <!-- 급식 -->
 <!-- 오늘의 중식, 석식 메뉴를 표시하는 화면 -->
 
-<!-- 수정 목록 -->
-<!-- 중식 석식 결괏값 로드 시간 길어짐 방지용 리로딩 버튼 만들기 -->
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -199,12 +196,6 @@
         <input id="dateInput" type="date"/>
     </div>
 
-    <div class="reload-button-container">
-        <button id="reloadBtn" class="reload-button" title="급식 메뉴 다시 불러오기">
-            <i class="fas fa-sync-alt"></i> 새로고침
-        </button>
-    </div>
-
     <section>
         <h2><i class="fas fa-utensils"></i> 중식</h2>
         <ul id="lunchMenu">
@@ -301,11 +292,6 @@
             }
         }
 
-        function reloadMeal() {
-            fetchMeal (formatDate(dateInput.value));
-        }
-        reloadBtn.addEventListener("click", reloadMeal);
-        
         const today = new Date();
         dateInput.valueAsDate = today;
 
