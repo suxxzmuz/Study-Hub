@@ -125,8 +125,8 @@
         
         .buttons button {
             flex-grow: 1; 
-            min-width: 120px;
-            padding: 10px 15px;
+            min-width: 140px;
+            padding: 10px 1px;
             font-size: 1rem;
             border: 1px solid #555555;
             background-color: #ffffff; 
@@ -135,7 +135,7 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
             font-weight: 500;
-            max-width: 130px; 
+            max-width: 140px; 
         }
         
         .buttons button:hover {
@@ -163,8 +163,10 @@
             margin-top: 15px;
             padding: 8px 15px;
             font-size: 0.9rem;
+            font-weight:600;
             border: 1px solid #555555;
             background-color: #f0f0f0;
+            border-radius: 8px;
         }
         
         .exam-block button:hover:not([onclick^="removeExamBlock"]) {
@@ -270,7 +272,7 @@
                         `).join("")}
                     </tbody>
                 </table>
-                <div style="text-align: right; overflow: hidden;">
+                <div style="text-align:right; overflow: hidden;">
                     <button onclick="addExamRow('${blockId}')">➕ 시험 추가</button>
                 </div>
             `;

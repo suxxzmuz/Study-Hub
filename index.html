@@ -218,7 +218,7 @@
     #todo-list li {
       padding: 8px 0;
       border-bottom: 1px dashed #e0e0e0;
-      font-size: 5px;
+      font-size: 14px;
     }
     
     #todo-list li:last-child {
@@ -416,7 +416,7 @@
     listElement.innerHTML = ''; 
 
     if (todos.length === 0) {
-        listElement.innerHTML = '<li style="text-align: center; color: #888; padding: 15px 0; border: none;">오늘의 할 일이 없어요!<br>할 일을 추가해 보세요.</li>';
+        listElement.innerHTML = '<li style="text-align: center; color: #888; padding: 15px 0; border: none;">오늘의 할 일이 없어요!  할 일을 추가해 보세요.</li>';
     }
   
     todos.forEach((todo, index) => {
