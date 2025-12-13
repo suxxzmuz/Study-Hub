@@ -180,6 +180,18 @@
             background: transparent;
             cursor: pointer;
         }
+        
+        .hide-datalist-arrow {
+            /*-ms-clear: none; */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none; 
+         
+        }
+
+        .hide-datalist-arrow::-ms-expand {
+             display: none;
+        }
 
     </style>
 </head>
@@ -249,7 +261,7 @@
                         ${Array.from({ length: rows }, (_, i) => `
                             <tr>
                                 <td>
-                                    <input type="text" list="exam-subject" value="${subjects[i]?.subject || ""}" placeholder="과목 선택" style="width: 95%;">
+                                    <input type="text" list="exam-subject" value="${subjects[i]?.subject || ""}" placeholder="과목 선택" style="width: 95%;" class="hide-datalist-arrow">
                                 </td>
                                 <td>
                                     <input type="text" value="${subjects[i]?.range || ""}" placeholder="시험 범위 입력">
