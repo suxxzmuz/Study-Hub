@@ -363,7 +363,7 @@
             block.subjects.forEach(sub => {
                 if (sub.subject && sub.subject.trim() !== '') {
                     autoTodos.push({ 
-                        text: `📝 오늘 지필평가: ${sub.subject} (${sub.range || '범위 미정'})`, 
+                        text: `지필평가: ${sub.subject} (${sub.range || '범위 미정'})`, 
                         completed: false 
                     });
                 }
@@ -376,7 +376,7 @@
     if (evalData[today]) {
         evalData[today].forEach(item => {
             autoTodos.push({ 
-                text: `📅 오늘 수행평가: ${item.subject} - ${item.content}`, 
+                text: `수행평가: ${item.subject} - ${item.content}`, 
                 completed: false 
             });
         });
@@ -439,7 +439,7 @@
   // 항목 삭제 함수 
   function deleteCompleted() {
     // 확인 문구 수정
-    if (confirm("완료된 항목만 삭제하시겠습니까?")) {
+    if (confirm("삭제하시겠습니까?")) {
         todos = todos.filter(todo => !todo.completed);
         renderTodos();
     }
@@ -455,7 +455,7 @@
 
     if (addTodoBtn) {
         addTodoBtn.onclick = function() {
-            const newTodoText = prompt("새로운 할 일을 입력하세요:");
+            const newTodoText = prompt("할 일을 입력하세요:");
             if (newTodoText && newTodoText.trim() !== "") {
                 todos.push({ text: newTodoText.trim(), completed: false });
                 renderTodos();
